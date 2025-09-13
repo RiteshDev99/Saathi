@@ -1,11 +1,16 @@
-import { Stack } from 'expo-router';
-import '@/global.css'
+import { Stack } from "expo-router";
+import { StatusBar } from "react-native";
+import "@/global.css";
+
 export default function Layout() {
     return (
-        <Stack
+        <>
+            <StatusBar backgroundColor="#000" barStyle="dark-content" />
 
-        >
-            <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-        </Stack>
+            <Stack>
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="(drawer)" options={{ headerShown: false, headerBackTitle:'Back'  }} />
+            </Stack>
+        </>
     );
 }

@@ -1,10 +1,24 @@
-import {View,Text} from "react-native";
-import '@/global.css'
-const IndexTab = () => {
-return (
-    <View className="h-screen flex items-center justify-center">
-        <Text className='text-3xl'>Welcome to Home</Text>
-    </View>
-)
+import React from 'react';
+import { View, Text,  StatusBar, SafeAreaView } from 'react-native';
+import { Stack } from "expo-router";
+
+export default function HomeScreen() {
+
+    return (
+        <>
+            <Stack.Screen options={{ headerShown: false }} />
+            <SafeAreaView style={{ flex: 1, backgroundColor: "#2E8BC0" }}>
+                <StatusBar backgroundColor="#2E8BC0" barStyle="light-content" />
+
+                <View style={{ flex: 1, }}>
+                    <View style={{flex:1, backgroundColor: 'white', paddingHorizontal: 20, paddingVertical: 24, marginTop:30,  }}>
+                        <View className='flex-row justify-center items-center'>
+                            <Text>Welcome To home</Text>
+                        </View>
+                    </View>
+
+                </View>
+            </SafeAreaView>
+        </>
+    );
 }
-export default IndexTab

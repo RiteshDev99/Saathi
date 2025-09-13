@@ -1,43 +1,31 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
+import { ButtonProps } from "@/types/type";
 
-export interface ButtonPropsItem {
-    id: string;
-    title: string;
-    backgroundColor?: string;
-    textColor?: string;
-    onPress?: () => void;
-}
-
-const CustomButton = ({ title, onPress, backgroundColor = '#fff', textColor = '#000' }: ButtonPropsItem) => {
+const CustomButton = ({
+                          onPress,
+                          title,
+                          bgColor = "#2E8BC0",
+                          textColor,
+                          className = "",
+                          IconLeft,
+                          IconRight,
+                          ...props
+                      }: ButtonProps) => {
     return (
         <TouchableOpacity
-            style={[styles.btn, { backgroundColor }]}
             onPress={onPress}
-            activeOpacity={0.8}
+            className={`w-full rounded-full p-3 flex flex-row justify-center items-center shadow-md shadow-neutral-400/70 ${bgColor} ${className}`}
+            {...props}
         >
-            <Text style={[styles.text, { color: textColor }]}>{title}</Text>
+            {IconLeft && <IconLeft />}
+            <Text className={`text-lg font-bold`}
+                  style={{ color: textColor || "#2E8BC0" }}
+            >
+                {title}
+            </Text>
+            {IconRight && <IconRight />}
         </TouchableOpacity>
     );
 };
-
-const styles = StyleSheet.create({
-    btn: {
-        paddingVertical: 7,
-        paddingHorizontal: 30,
-        borderRadius: 22,
-        borderWidth: 1,
-        borderColor: '#000',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 4,
-        elevation: 5,
-        marginRight: 10,
-    },
-    text: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-});
 
 export default CustomButton;
