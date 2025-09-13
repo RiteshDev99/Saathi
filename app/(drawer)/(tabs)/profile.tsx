@@ -13,8 +13,8 @@ export default function ProfileScreen() {
     return (
         <>
             <Stack.Screen options={{ headerShown: false }} />
-            <SafeAreaView style={{ flex: 1, backgroundColor: "#2E8BC0" }}>
-                <StatusBar backgroundColor="#2E8BC0" barStyle="light-content" />
+            <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+                <StatusBar backgroundColor="white" barStyle="dark-content" />
 
                 <View style={{ flex: 1 }}>
                     <View style={{ backgroundColor: 'white', paddingHorizontal: 20, paddingVertical: 24, marginTop:30 }}>

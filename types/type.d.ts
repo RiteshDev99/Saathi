@@ -8,3 +8,13 @@ export interface ButtonProps extends TouchableOpacityProps {
     IconLeft?: React.ComponentType<any>;
     IconRight?: React.ComponentType<any>;
 }
+export interface BookingProps extends TouchableOpacityProps {
+    id?:string;
+    time?:string;
+    rating?:number;
+    price?:number;
+    service?:string;
+    status?:string;
+    location?:string;
+    area?:string;
+}

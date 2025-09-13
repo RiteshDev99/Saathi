@@ -163,7 +163,7 @@ const OTPScreen = () => {
                             You have successfully verified your account.
                         </Text>
                         <CustomButton
-                            title="GO to Home"
+                            title="Go to Home"
                             className="mt-5 bg-[#2E8BC0]"
                             onPress={handleBrowseHome}
                             textColor='#fff'

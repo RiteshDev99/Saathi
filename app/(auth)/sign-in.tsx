@@ -76,7 +76,7 @@ const TripReadyScreen: React.FC<TripReadyScreenProps> = ({
 
             <View className="flex-1 px-6">
                 <Text className="text-3xl font-bold text-gray-900 mb-12 leading-tight">
-                    Let's get you trip-ready!
+                    Lets get you trip-read!
                 </Text>
 
                 <View className="mb-8">

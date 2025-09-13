@@ -1,7 +1,5 @@
 import { Tabs } from 'expo-router';
-import {FontAwesome6, Octicons} from "@expo/vector-icons";
-import { View } from "react-native";
-
+import {FontAwesome6, Ionicons, Octicons} from "@expo/vector-icons";
 export default function TabLayout() {
     return (
         <Tabs
@@ -22,23 +20,17 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: 'Home',
-                    tabBarIcon: ({ color, focused }) => (
-                        <View
-                            style={{
-                                backgroundColor: focused ? "#2E8BC0" : "transparent",
-                                width: 55,
-                                height: 29,
-                                borderRadius: 16,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <Octicons
-                                size={20}
-                                name="home"
-                                color={focused ? "#fff" : color}
-                            />
-                        </View>
+                    tabBarIcon: ({ color }) => (
+                        <Octicons size={20} name="home" color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="ridePost"
+                options={{
+                    title: 'Publish',
+                    tabBarIcon: ({ color }) => (
+                        <Ionicons size={28} name="add-circle-outline" color={color} />
                     ),
                 }}
             />
@@ -46,26 +38,12 @@ export default function TabLayout() {
                 name="profile"
                 options={{
                     title: 'Profile',
-                    tabBarIcon: ({ color, focused }) => (
-                        <View
-                            style={{
-                                backgroundColor: focused ? "#2E8BC0" : "transparent",
-                                width: 55,
-                                height: 29,
-                                borderRadius: 16,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <FontAwesome6
-                                size={20}
-                                name="user"
-                                color={focused ? "#fff" : color}
-                            />
-                        </View>
+                    tabBarIcon: ({ color }) => (
+                        <FontAwesome6 size={20} name="circle-user" color={color} />
                     ),
                 }}
             />
+
         </Tabs>
     );
 }

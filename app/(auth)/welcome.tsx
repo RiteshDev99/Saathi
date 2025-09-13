@@ -1,16 +1,16 @@
-import { router } from "expo-router";
-import { useRef, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Swiper from "react-native-swiper";
 import CustomButton from "@/src/components/ui/customButton";
 import {MaterialIcons} from "@expo/vector-icons";
+import {router} from "expo-router";
+import {useRef, useState} from "react";
+import {Image, Text, TouchableOpacity, View} from "react-native";
+import {SafeAreaView} from "react-native-safe-area-context";
+import Swiper from "react-native-swiper";
 
 export const onboarding = [
     {
         id: 1,
         title: "Post a Ride in Just One Tap!",
-        description: "Share your empty seats, save fuel, and earn effortlessly.",
+        description: "Shear your empty seats, save fuel, and earn effortlessly.",
         image: require("../../assets/images/onboarding1.png"),
     },
     {
@@ -58,8 +58,8 @@ const Onboarding = () => {
             <Swiper
                 ref={swiperRef}
                 loop={false}
-                dot={<View className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full" />}
-                activeDot={<View className="w-[32px] h-[4px] mx-1 bg-[#2E8BC0] rounded-full" />}
+                dot={<View className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full"/>}
+                activeDot={<View className="w-[32px] h-[4px] mx-1 bg-[#2E8BC0] rounded-full"/>}
                 onIndexChanged={(index) => setActiveIndex(index)}
             >
                 {onboarding.map((item) => (
