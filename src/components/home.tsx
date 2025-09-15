@@ -3,6 +3,7 @@ import {
     View,
     Text,
     TextInput,
+    Image,
     TouchableOpacity,
     ScrollView,
     SafeAreaView, FlatList,
@@ -10,6 +11,8 @@ import {
 import {Ionicons, MaterialIcons} from '@expo/vector-icons';
 import {BookingProps} from "@/types/type";
 import RecentRideCard from "@/src/components/ui/recentRideCard";
+import {router} from "expo-router";
+
 export const BookingData: BookingProps[] = [
     {
         id: "1",
@@ -70,7 +73,19 @@ export const BookingData: BookingProps[] = [
 export default function RideBookingScreen() {
     const [passengerCount, setPassengerCount] = useState(1);
     const [fromLocation, setFromLocation] = useState('');
-    const [toLocation, setToLocation] = useState('');
+    const [toLocation, setToLocation] = useState('')
+
+    const searchData = () => {
+        router.push({
+            pathname: "/(screens)/RideScreen",
+            params: {title:'rideSearch',
+                fromLocation:fromLocation,
+                toLocation:toLocation,
+                passengerCount:passengerCount,
+            },
+
+        })
+    }
 
     const CarIllustration = () => (
         <View className="relative h-32 justify-center items-center mb-8">
@@ -118,7 +133,11 @@ export default function RideBookingScreen() {
 
                     <View className="mb-6">
                         <View className="flex-row items-center  gap-x-3 mb-3">
-                            <View className="w-6 h-6 border-4 border-gray-400 rounded-full"/>
+                            <Image
+                                source={require('@/assets/icons/target.png')}
+                                className="w-7 h-7 "
+
+                            />
                             <TextInput
                                 placeholder="Leaving from"
                                 value={fromLocation}
@@ -132,7 +151,11 @@ export default function RideBookingScreen() {
 
                     <View className="mb-6">
                         <View className="flex-row items-center gap-x-3 mb-3">
-                            <View className="w-6 h-6 border-4 border-gray-400 rounded-full"/>
+                            <Image
+                                source={require('@/assets/icons/location-pin.png')}
+                                className="w-7 h-7"
+
+                            />
                             <TextInput
                                 placeholder="Going to"
                                 value={toLocation}
@@ -162,38 +185,48 @@ export default function RideBookingScreen() {
                                 onPress={() => setPassengerCount(Math.max(1, passengerCount - 1))}
                                 className="w-8 h-8 rounded-full border border-gray-300 items-center justify-center"
                             >
-                                <Text className="text-gray-600 text-lg">-</Text>
+                                <Text className="text-gray-600 text-xl">–</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 onPress={() => setPassengerCount(passengerCount + 1)}
                                 className="w-8 h-8 rounded-full border border-gray-300 items-center justify-center"
                             >
-                                <Text className="text-gray-600 text-lg">+</Text>
+                                <Text className="text-gray-600 text-xl">+</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <TouchableOpacity className="bg-[#2E8BC0] py-4 rounded-2xl mb-6">
-                        <Text className="text-white text-xl font-semibold text-center">
+                    <TouchableOpacity
+                        onPress={searchData}
+                        disabled={!fromLocation || !toLocation || passengerCount < 1}
+                        className={`py-3 px-20 rounded-xl mb-6 flex-row items-center justify-center gap-x-5 ${
+                            fromLocation && toLocation && passengerCount > 0 ? "bg-[#2E8BC0]" : "border border-gray-600"
+                        }`}
+                    >
+                        <Text
+                            className={`text-xl font-semibold text-center ${
+                                fromLocation && toLocation && passengerCount > 0 ? "text-white" : "text-gray-500"
+                            }`}
+                        >
                             Search
                         </Text>
                     </TouchableOpacity>
 
                     <View className=" flex-col  mb-1 ">
                         <View className="flex-row items-center mb-3 gap-x-2">
-                            <MaterialIcons size={25} name="history" color="#000" />
+                            <MaterialIcons size={25} name="history" color="#000"/>
                             <Text className="text-xl font-bold text-gray-800 ml-2">
                                 Recent Rides
                             </Text>
                         </View>
-                        </View>
+                    </View>
 
                     <View className=' flex-col items-center'>
                         <FlatList
                             data={BookingData.slice(0, 3)}
                             keyExtractor={(item, index) => item.id ?? index.toString()}
                             scrollEnabled={false}
-                            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-                            renderItem={({ item }) => (
+                            ItemSeparatorComponent={() => <View style={{height: 10}}/>}
+                            renderItem={({item}) => (
                                 <RecentRideCard
                                     item={item}
                                     // onPress={() =>

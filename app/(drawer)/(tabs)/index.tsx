@@ -6,7 +6,7 @@ import RideBookingScreen from "@/src/components/home";
 export default function HomeScreen() {
     return (
         <>
-            <Stack.Screen options={{ headerShown: false }} />
+            <Stack.Screen options={{ headerShown: false, }}/>
             <StatusBar backgroundColor="#2E8BC0" barStyle="light-content" />
             <RideBookingScreen />
         </>

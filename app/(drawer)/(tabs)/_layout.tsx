@@ -26,7 +26,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="ridePost"
+                name="publish"
                 options={{
                     title: 'Publish',
                     tabBarIcon: ({ color }) => (
