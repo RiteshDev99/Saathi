@@ -74,9 +74,18 @@ export default function DriverRegistration() {
                         onPress={() => router.dismiss()}
                     />
                 </View>
-                <Text className="text-xl font-semibold text-black">
-                    Register Your Account
-                </Text>
+                <View className="flex-row items-center  gap-x-3 mb-3">
+                    <Image
+                        source={require('@/assets/icons/target.png')}
+                        className="w-7 h-7 "
+
+                    />
+                    <TextInput
+                        placeholder="Leaving from"
+                        className="flex-1 text-lg text-gray-600 py-2"
+                        placeholderTextColor="#9CA3AF"
+                    />
+                </View>
             </View>
 
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     View,
     Text,
@@ -11,7 +11,7 @@ import {
 import {Ionicons, MaterialIcons} from '@expo/vector-icons';
 import {BookingProps} from "@/types/type";
 import RecentRideCard from "@/src/components/ui/recentRideCard";
-import {router} from "expo-router";
+import {router, useLocalSearchParams} from "expo-router";
 
 export const BookingData: BookingProps[] = [
     {
@@ -72,19 +72,39 @@ export const BookingData: BookingProps[] = [
 
 export default function RideBookingScreen() {
     const [passengerCount, setPassengerCount] = useState(1);
-    const [fromLocation, setFromLocation] = useState('');
-    const [toLocation, setToLocation] = useState('')
+    const [pickupLocation, setPickupLocation] = useState('');
+    const [dropLocation, setDropLocation] = useState('');
+
+    const { PickupLocation, DropLocation } = useLocalSearchParams<{
+        PickupLocation?: string;
+        DropLocation?: string;
+    }>();
+
+    useEffect(() => {
+        if (PickupLocation) {
+            setPickupLocation(PickupLocation);
+        }
+        if (DropLocation) {
+            setDropLocation(DropLocation);
+        }
+
+        console.log(PickupLocation);
+    }, [PickupLocation, DropLocation]);
+
+
+
 
     const searchData = () => {
-        router.push({
-            pathname: "/(screens)/RideScreen",
-            params: {title:'rideSearch',
-                fromLocation:fromLocation,
-                toLocation:toLocation,
-                passengerCount:passengerCount,
-            },
-
-        })
+        // router.push({
+        //     pathname: "/(screens)/RideScreen",
+        //     params: {
+        //         title: 'rideSearch',
+        //         fromLocation: fromLocation,
+        //         toLocation: toLocation,
+        //         passengerCount: passengerCount,
+        //     },
+        //
+        // })
     }
 
     const CarIllustration = () => (
@@ -131,7 +151,18 @@ export default function RideBookingScreen() {
 
                 <View className="flex-1 bg-white rounded-t-3xl px-6 pt-8 pb-6 min-h-screen">
 
-                    <View className="mb-6">
+                    <TouchableOpacity className="mb-6"
+                                      activeOpacity={1.6}
+
+                                      onPress={() => router.push({
+                                          pathname: '/(screens)/SearchScreen',
+                                          params: {
+                                              PlaceHolderName: "Enter your pickup location",
+                                              fieldType: "pickup",
+
+                                          }
+                                      })}
+                    >
                         <View className="flex-row items-center  gap-x-3 mb-3">
                             <Image
                                 source={require('@/assets/icons/target.png')}
@@ -139,17 +170,28 @@ export default function RideBookingScreen() {
 
                             />
                             <TextInput
-                                placeholder="Leaving from"
-                                value={fromLocation}
-                                onChangeText={setFromLocation}
+                                placeholder="Enter pickup location"
+                                editable={false}
+                                value={pickupLocation}
                                 className="flex-1 text-lg text-gray-600 py-2"
                                 placeholderTextColor="#9CA3AF"
                             />
                         </View>
                         <View className="ml-8 h-px bg-gray-200"/>
-                    </View>
+                    </TouchableOpacity>
 
-                    <View className="mb-6">
+                    <TouchableOpacity className="mb-6"
+                                      activeOpacity={1.6}
+                                      onPress={() => router.push({
+                                          pathname: '/(screens)/SearchScreen',
+                                          params: {
+                                              PlaceHolderName: "Enter your drop location",
+                                              fieldType: "drop",
+                                          }
+                                      })}
+
+
+                    >
                         <View className="flex-row items-center gap-x-3 mb-3">
                             <Image
                                 source={require('@/assets/icons/location-pin.png')}
@@ -157,15 +199,15 @@ export default function RideBookingScreen() {
 
                             />
                             <TextInput
-                                placeholder="Going to"
-                                value={toLocation}
-                                onChangeText={setToLocation}
+                                placeholder="Enter drop location"
+                                editable={false}
+                                value={dropLocation}
                                 className="flex-1 text-lg text-gray-600 py-2"
                                 placeholderTextColor="#9CA3AF"
                             />
                         </View>
                         <View className="ml-8 h-px bg-gray-200"/>
-                    </View>
+                    </TouchableOpacity>
 
                     <TouchableOpacity className="mb-6">
                         <View className="flex-row items-center gap-x-3 mb-3">
@@ -197,14 +239,14 @@ export default function RideBookingScreen() {
                     </View>
                     <TouchableOpacity
                         onPress={searchData}
-                        disabled={!fromLocation || !toLocation || passengerCount < 1}
+                        disabled={!pickupLocation || !dropLocation || passengerCount < 1}
                         className={`py-3 px-20 rounded-xl mb-6 flex-row items-center justify-center gap-x-5 ${
-                            fromLocation && toLocation && passengerCount > 0 ? "bg-[#2E8BC0]" : "border border-gray-600"
+                            pickupLocation && dropLocation&& passengerCount > 0 ? "bg-[#2E8BC0]" : "border border-gray-600"
                         }`}
                     >
                         <Text
                             className={`text-xl font-semibold text-center ${
-                                fromLocation && toLocation && passengerCount > 0 ? "text-white" : "text-gray-500"
+                                pickupLocation && dropLocation && passengerCount > 0 ? "text-white" : "text-gray-500"
                             }`}
                         >
                             Search
