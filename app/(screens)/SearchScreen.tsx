@@ -4,6 +4,8 @@ import {router, Stack, useLocalSearchParams} from "expo-router";
 import React, {useRef, useEffect, useState} from "react";
 import {Entypo, Ionicons} from "@expo/vector-icons";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {setPickupLocation, setDropLocation} from '@/src/store/feature/locationFetchSlice'
 
 export type searchParams = {
     query: string;
@@ -25,6 +27,8 @@ export default function SearchScreen() {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<SearchResult[]>([]);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         const timer = setTimeout(() => {
             textInputRef.current?.focus();
@@ -35,7 +39,7 @@ export default function SearchScreen() {
 
 
     useEffect(() => {
-        if (query.trim().length > 2) {
+        if (query.trim().length > 3) {
             const debounceTimer = setTimeout(() => {
                 performSearch();
             }, 300);
@@ -45,6 +49,7 @@ export default function SearchScreen() {
             setResults([]);
         }
     }, [query]);
+
 
     async function handleSearch({
                                     query,
@@ -90,18 +95,18 @@ export default function SearchScreen() {
         }
     };
 
-    const handleResultPress = (result: SearchResult) => {
-        console.log("Selected result:", result);
-
+    const handleResultPress = (result: SearchResult, fieldType: "pickup" | "drop") => {
         router.push({
             pathname: "/(drawer)/(tabs)",
-            params: {
-                ...(fieldType === "pickup"
-                    ? {PickupLocation: result.name}
-                    : {DropLocation: result.name}),
-            },
         });
+
+        if (fieldType === "pickup") {
+            dispatch(setPickupLocation(result.name));
+        } else if (fieldType === "drop") {
+            dispatch(setDropLocation(result.name));
+        }
     };
+
 
     const clearSearch = () => {
         setQuery("");
@@ -112,7 +117,7 @@ export default function SearchScreen() {
     const renderSearchResult = ({item}: { item: SearchResult }) => (
         <TouchableOpacity
             className="flex-row items-center px-4 py-3 border-b border-gray-100"
-            onPress={() => handleResultPress(item)}
+            onPress={() => handleResultPress(item, fieldType)}
         >
             <Ionicons name="location-outline" size={20} color="#666"/>
             <View className="ml-3 flex-1">

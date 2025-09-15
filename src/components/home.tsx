@@ -11,7 +11,8 @@ import {
 import {Ionicons, MaterialIcons} from '@expo/vector-icons';
 import {BookingProps} from "@/types/type";
 import RecentRideCard from "@/src/components/ui/recentRideCard";
-import {router, useLocalSearchParams} from "expo-router";
+import {router} from "expo-router";
+import {useSelector} from "react-redux";
 
 export const BookingData: BookingProps[] = [
     {
@@ -72,39 +73,24 @@ export const BookingData: BookingProps[] = [
 
 export default function RideBookingScreen() {
     const [passengerCount, setPassengerCount] = useState(1);
-    const [pickupLocation, setPickupLocation] = useState('');
-    const [dropLocation, setDropLocation] = useState('');
 
-    const { PickupLocation, DropLocation } = useLocalSearchParams<{
-        PickupLocation?: string;
-        DropLocation?: string;
-    }>();
-
-    useEffect(() => {
-        if (PickupLocation) {
-            setPickupLocation(PickupLocation);
-        }
-        if (DropLocation) {
-            setDropLocation(DropLocation);
-        }
-
-        console.log(PickupLocation);
-    }, [PickupLocation, DropLocation]);
-
+    const { fetchPickupLocation, fetchDropLocation } = useSelector(
+        (state: any) => state.locationFetch
+    );
 
 
 
     const searchData = () => {
-        // router.push({
-        //     pathname: "/(screens)/RideScreen",
-        //     params: {
-        //         title: 'rideSearch',
-        //         fromLocation: fromLocation,
-        //         toLocation: toLocation,
-        //         passengerCount: passengerCount,
-        //     },
-        //
-        // })
+        router.push({
+            pathname: "/(screens)/RideScreen",
+            params: {
+                title: 'rideSearch',
+                fromLocation: fetchPickupLocation,
+                toLocation: fetchDropLocation,
+                passengerCount: passengerCount,
+            },
+
+        })
     }
 
     const CarIllustration = () => (
@@ -172,7 +158,7 @@ export default function RideBookingScreen() {
                             <TextInput
                                 placeholder="Enter pickup location"
                                 editable={false}
-                                value={pickupLocation}
+                                value={fetchPickupLocation}
                                 className="flex-1 text-lg text-gray-600 py-2"
                                 placeholderTextColor="#9CA3AF"
                             />
@@ -201,7 +187,7 @@ export default function RideBookingScreen() {
                             <TextInput
                                 placeholder="Enter drop location"
                                 editable={false}
-                                value={dropLocation}
+                                value={fetchDropLocation}
                                 className="flex-1 text-lg text-gray-600 py-2"
                                 placeholderTextColor="#9CA3AF"
                             />
@@ -239,14 +225,14 @@ export default function RideBookingScreen() {
                     </View>
                     <TouchableOpacity
                         onPress={searchData}
-                        disabled={!pickupLocation || !dropLocation || passengerCount < 1}
+                        disabled={!fetchPickupLocation || !fetchDropLocation || passengerCount < 1}
                         className={`py-3 px-20 rounded-xl mb-6 flex-row items-center justify-center gap-x-5 ${
-                            pickupLocation && dropLocation&& passengerCount > 0 ? "bg-[#2E8BC0]" : "border border-gray-600"
+                            fetchPickupLocation && fetchDropLocation && passengerCount > 0 ? "bg-[#2E8BC0]" : "border border-gray-600"
                         }`}
                     >
                         <Text
                             className={`text-xl font-semibold text-center ${
-                                pickupLocation && dropLocation && passengerCount > 0 ? "text-white" : "text-gray-500"
+                                fetchPickupLocation && fetchDropLocation && passengerCount > 0 ? "text-white" : "text-gray-500"
                             }`}
                         >
                             Search
