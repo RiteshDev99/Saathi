@@ -14,7 +14,7 @@ export default function RideScreen() {
         <>
             <Stack.Screen options={{headerShown: false }} />
             <StatusBar backgroundColor="#2E8BC0" barStyle="dark-content" />
-            <SafeAreaView className='flex-1 bg-white'>
+            <SafeAreaView className='flex-1 bg-gray-100'>
                 {title === 'register' && <DriverRegistration />}
                 {title === 'rideSearch' && <RideSearch />}
 

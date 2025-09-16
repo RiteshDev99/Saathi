@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import {
     View,
     Text,
@@ -9,75 +9,70 @@ import {
     SafeAreaView, FlatList,
 } from 'react-native';
 import {Ionicons, MaterialIcons} from '@expo/vector-icons';
-import {BookingProps} from "@/types/type";
+import {BookingProps, DriverPostRideData} from "@/types/type";
 import RecentRideCard from "@/src/components/ui/recentRideCard";
 import {router} from "expo-router";
-import {useSelector} from "react-redux";
+import {useAppSelector,} from '@/src/store/hooks'
 
-export const BookingData: BookingProps[] = [
+export const BookingData: DriverPostRideData[] = [
     {
-        id: "1",
-        price: 910,
-        time: "Sat 20 Sept, 1 passenger",
-        service: "Car",
-        status: "Cancelled",
-        area: "T1 Cab Pickup - Gates 8 to 10, Indira Gandhi International Airport, New Delhi, Terminal 3 Departures Roadway",
-        location: "Jaunpur Bus Stand → Gorakhpur",
+        id: '1',
+        name: 'Kanhaiya',
+        date: '',
+        day: '',
+        description: '',
+        pickupLocation: 'Gorakhpur',
+        dropLocation: 'Lucknow',
+        pickupTime: '09:00',
+        DropTime: '14:00',
+        totalHours: '5h 00m',
+        price: 580,
+        service: 'Car',
+        rating: '★ 2.0',
+        emptySets: '4',
+    },
+
+    {
+        id: '2',
+        name: 'Kanhaiya',
+        date: '',
+        day: '',
+        description: '',
+        pickupLocation: 'Jaunpur',
+        dropLocation: 'Lucknow',
+        pickupTime: '09:00',
+        DropTime: '14:00',
+        totalHours: '5h 00m',
+        price: 580,
+        service: 'Bike',
+        rating: '★ 2.0',
+        emptySets: '4',
     },
     {
-        id: "2",
-        price: 730,
-        time: "Sat 23 Sept, 1 passenger",
-        service: "Bike",
-        status: "Ongoing",
-        area: "T2 Cab Pickup - Gates 23 to 10 Cab Pickup - Gates 8 to 10, Indira Gandhi",
-        location: "Basti  → Jaunpur",
+        id: '3',
+        name: 'Kanhaiya',
+        date: '',
+        day: '',
+        description: '',
+        pickupLocation: 'Lucknow',
+        dropLocation: 'Gorakhpur',
+        pickupTime: '09:00',
+        DropTime: '14:00',
+        totalHours: '5h 00m',
+        price: 580,
+        service: 'Car',
+        rating: '★ 2.0',
+        emptySets: '4',
     },
-    {
-        id: "3",
-        price: 180,
-        time: "Sat 2 Sept, 1 passenger",
-        service: "Car",
-        status: "Completed",
-        area: "T2 Cab Pickup - Gates 23 to 10 Near Main Market, Opposite Central Mall,",
-        location: "Jaunpur Bus Stand → Gorakhpur",
-    },
-    {
-        id: "4",
-        price: 310,
-        time: "Thu, Aug 30 - 11:18am",
-        service: "Commercial",
-        status: "Ongoing",
-        area: "T2 Cab Pickup - Gates 23 to 10 T2 Cab Pickup - Gates 2",
-        location: "Punjab Station Road Gates 23 to 10 Cab Pickup - Gates 8",
-    },
-    {
-        id: "5",
-        price: 110,
-        time: "Thu, Aug 30 - 11:18am",
-        service: "Auto",
-        status: "Cancelled",
-        area: "T2 Cab Pickup - Gates 23 to 10",
-        location: "Punjab Station Road",
-    },
-    {
-        id: "6",
-        price: 530,
-        time: "Thu, Aug 30 - 11:18am",
-        service: "Car",
-        status: "Completed",
-        area: "T2 Cab Pickup - Gates 23 to 10",
-        location: "Punjab Station Road",
-    },
+
 ];
 
 export default function RideBookingScreen() {
     const [passengerCount, setPassengerCount] = useState(1);
 
-    const { fetchPickupLocation, fetchDropLocation } = useSelector(
+    const {fetchPickupLocation, fetchDropLocation} = useAppSelector(
         (state: any) => state.locationFetch
     );
-
 
 
     const searchData = () => {

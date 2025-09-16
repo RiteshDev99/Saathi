@@ -1,24 +1,21 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
-import { BookingProps } from "@/types/type";
+import {BookingProps, DriverPostRideData} from "@/types/type";
 import { getStatusStyle } from "@/src/utils/statusUtils";
-import {MaterialIcons} from "@expo/vector-icons";
+import {Ionicons, MaterialIcons} from "@expo/vector-icons";
 import React from "react";
+import {router} from "expo-router";
 
-type BookingCardProps = {
-    item: BookingProps;
-    onPress?: () => void;
-};
 
-const RecentRideCard = ({ item, onPress }: BookingCardProps) => {
 
-    const { image } = getStatusStyle(item.status ?? "", item.service ?? "");
+const RecentRideCard = ({ item }: { item: DriverPostRideData }) => {
+
+    const { image } = getStatusStyle(item.service ?? "");
 
     return (
         <TouchableOpacity
             className=" h-[7vh] w-[89vw] rounded-2xl  flex-col justify-center px-3"
             activeOpacity={0.8}
-            onPress={onPress}
         >
             <View className="flex-row items-center justify-between ">
                 <View className="flex-row items-center gap-6">
@@ -28,10 +25,19 @@ const RecentRideCard = ({ item, onPress }: BookingCardProps) => {
                         contentFit="cover"
                         transition={300}
                     />
-                    <View>
+                    <View className=''>
 
-                        <Text className="text-base font-bold text-gray-800">{item.location}</Text>
-                        <Text className=" text-sm text-gray-600 font-medium">{item.time}</Text>
+                        <View className="flex-row items-center gap-6">
+                            <Text className="text-base font-bold text-gray-800">{item.pickupLocation}</Text>
+                            <Ionicons
+                                size={20}
+                                name="arrow-forward"
+                                color="black"
+                            />
+                            <Text className="text-base font-bold text-gray-800">{item.dropLocation}</Text>
+
+                        </View>
+                        <Text className=" text-sm text-gray-600 font-medium">{item.totalHours}</Text>
                     </View>
                 </View>
                 <MaterialIcons size={20} name="arrow-forward-ios" color="#9CA3AF" />

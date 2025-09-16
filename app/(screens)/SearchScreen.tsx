@@ -4,9 +4,10 @@ import {router, Stack, useLocalSearchParams} from "expo-router";
 import React, {useRef, useEffect, useState} from "react";
 import {Entypo, Ionicons} from "@expo/vector-icons";
 import axios from "axios";
-import {useDispatch} from "react-redux";
 import {setPickupLocation, setDropLocation} from '@/src/store/feature/locationFetchSlice'
 import conf from '@/src/conf/conf'
+import { useAppDispatch   } from '@/src/store/hooks'
+
 export type searchParams = {
     query: string;
     lat: number;
@@ -27,7 +28,7 @@ export default function SearchScreen() {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<SearchResult[]>([]);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -69,8 +70,6 @@ export default function SearchScreen() {
                     },
                 }
             );
-
-            console.log("API Response:", response.data);
 
             if (response.data?.success && response.data?.data?.data) {
                 setResults(response.data.data.data);
@@ -141,7 +140,7 @@ export default function SearchScreen() {
             <StatusBar backgroundColor="#2E8BC0" barStyle="dark-content"/>
 
             <SafeAreaView className="flex-1 bg-white">
-                <View className="flex-row items-center justify-between border-b border-gray-200 px-4 pb-4 pt-4">
+                <View className="flex-row items-center justify-between border-b border-gray-600 px-4 pb-4 pt-4">
                     <View className="flex-row items-center flex-1">
                         <Ionicons
                             size={25}
