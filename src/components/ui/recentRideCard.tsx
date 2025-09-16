@@ -1,14 +1,17 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
-import {BookingProps, DriverPostRideData} from "@/types/type";
+import { DriverPostRideData} from "@/types/type";
 import { getStatusStyle } from "@/src/utils/statusUtils";
 import {Ionicons, MaterialIcons} from "@expo/vector-icons";
 import React from "react";
-import {router} from "expo-router";
 
 
+type Props = {
+    item: DriverPostRideData;
+    onPress: () => void;
+}
 
-const RecentRideCard = ({ item }: { item: DriverPostRideData }) => {
+const RecentRideCard = ({ item, onPress }: Props) => {
 
     const { image } = getStatusStyle(item.service ?? "");
 
@@ -16,12 +19,13 @@ const RecentRideCard = ({ item }: { item: DriverPostRideData }) => {
         <TouchableOpacity
             className=" h-[7vh] w-[89vw] rounded-2xl  flex-col justify-center px-3"
             activeOpacity={0.8}
+            onPress={onPress}
         >
             <View className="flex-row items-center justify-between ">
                 <View className="flex-row items-center gap-6">
                     <Image
                         source={image}
-                        style={{ width: 46, height: 30, borderRadius: 6 }}
+                        style={{ width: 55, height: 55, borderRadius: 6 }}
                         contentFit="cover"
                         transition={300}
                     />

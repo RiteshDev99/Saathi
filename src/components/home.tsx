@@ -9,7 +9,7 @@ import {
     SafeAreaView, FlatList,
 } from 'react-native';
 import {Ionicons, MaterialIcons} from '@expo/vector-icons';
-import {BookingProps, DriverPostRideData} from "@/types/type";
+import { DriverPostRideData} from "@/types/type";
 import RecentRideCard from "@/src/components/ui/recentRideCard";
 import {router} from "expo-router";
 import {useAppSelector,} from '@/src/store/hooks'
@@ -252,12 +252,12 @@ export default function RideBookingScreen() {
                             renderItem={({item}) => (
                                 <RecentRideCard
                                     item={item}
-                                    // onPress={() =>
-                                    //     router.push({
-                                    //         pathname: "/(screens)/BookingDetails",
-                                    //         params: { id: item.id },
-                                    //     })
-                                    // }
+                                    onPress={() =>
+                                        router.push({
+                                            pathname: "/(screens)/RidePostDetails",
+                                            params: { id: item.id },
+                                        })
+                                    }
                                 />
                             )}
                         />
