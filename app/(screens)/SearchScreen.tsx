@@ -6,7 +6,7 @@ import {Entypo, Ionicons} from "@expo/vector-icons";
 import axios from "axios";
 import {useDispatch} from "react-redux";
 import {setPickupLocation, setDropLocation} from '@/src/store/feature/locationFetchSlice'
-
+import conf from '@/src/conf/conf'
 export type searchParams = {
     query: string;
     lat: number;
@@ -60,7 +60,7 @@ export default function SearchScreen() {
             setLoading(true);
 
             const response = await axios.get(
-                "https://loca-api.maya-cloud.workers.dev/search",
+                conf.mapApiEndPoint,
                 {
                     params: {
                         q: query,
