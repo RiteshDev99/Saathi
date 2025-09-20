@@ -1,8 +1,9 @@
-import {View, Text} from "react-native";
+import {View, Text, TouchableOpacity} from "react-native";
 import {Image} from "expo-image";
 import {DriverPostRideData} from "@/types/type";
 import {getStatusStyle} from "@/src/utils/statusUtils";
 import React from "react";
+import {router} from "expo-router";
 
 type Props = {
     item: DriverPostRideData;
@@ -89,6 +90,15 @@ const PostCardDetails = ({item}: Props) => {
 
                 <View className="flex-col mt-4 gap-8">
                     <Text>{item.description}</Text>
+                </View>
+            </View>
+            <View className="absolute bottom-5 left-0 right-0 w-full items-center">
+                <View
+                    className="h-[9vh] w-full bg-white rounded-2xl shadow-md px-7 flex-row items-center justify-center">
+                    <TouchableOpacity className="bg-[#2E8BC0] px-[110px] py-3 rounded-3xl"
+                       onPress={()=> router.dismiss()}>
+                        <Text className="text-white text-base font-semibold">Book Ride</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>

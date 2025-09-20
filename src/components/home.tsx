@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import {
     View,
     Text,
@@ -9,9 +9,9 @@ import {
     SafeAreaView, FlatList,
 } from 'react-native';
 import {Ionicons, MaterialIcons} from '@expo/vector-icons';
-import { DriverPostRideData} from "@/types/type";
+import {DriverPostRideData} from "@/types/type";
 import RecentRideCard from "@/src/components/ui/recentRideCard";
-import {router} from "expo-router";
+import {router, useLocalSearchParams} from "expo-router";
 import {useAppSelector,} from '@/src/store/hooks'
 
 export const BookingData: DriverPostRideData[] = [
@@ -73,7 +73,7 @@ export default function RideBookingScreen() {
     const {fetchPickupLocation, fetchDropLocation} = useAppSelector(
         (state: any) => state.locationFetch
     );
-
+    const {date} = useLocalSearchParams<{ date?: string }>();
 
     const searchData = () => {
         router.push({
@@ -190,10 +190,15 @@ export default function RideBookingScreen() {
                         <View className="ml-8 h-px bg-gray-200"/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity className="mb-6">
+                    <TouchableOpacity
+                        className="mb-6"
+                        onPress={() => router.push("/(screens)/CalendarScreen")}
+                    >
                         <View className="flex-row items-center gap-x-3 mb-3">
                             <Ionicons name="calendar-outline" size={24} color="#6B7280"/>
-                            <Text className="text-lg text-gray-700 py-2">Today</Text>
+                            <Text className="text-lg text-gray-700 py-2">
+                                {date ? date : "Select Date"}
+                            </Text>
                         </View>
                         <View className="ml-10 h-px bg-gray-200"/>
                     </TouchableOpacity>
@@ -255,7 +260,7 @@ export default function RideBookingScreen() {
                                     onPress={() =>
                                         router.push({
                                             pathname: "/(screens)/RidePostDetails",
-                                            params: { id: item.id },
+                                            params: {id: item.id},
                                         })
                                     }
                                 />
