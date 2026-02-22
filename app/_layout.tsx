@@ -12,7 +12,6 @@ export default function Layout() {
             <Stack>
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 <Stack.Screen name="(drawer)" options={{ headerShown: false, headerBackTitle:'Back'  }} />
-
             </Stack>
        </Provider>
         </>
