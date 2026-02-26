@@ -90,6 +90,3 @@ EXPO_PUBLIC_API_URL=https://api.example.com
   <img src="assets/ReadmeImages/img10.jpeg" alt="Saathi screenshot 10" style="height:420px; object-fit:cover;" />
 </div>
 
----
-
-If you'd like anything else removed or the gallery styled differently (smaller thumbnails, captions underneath, or grid layout), tell me and I'll update it.
